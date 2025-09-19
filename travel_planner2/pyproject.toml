@@ -18,6 +18,7 @@ dependencies = [
 [project.scripts]
 travel_planner2 = "travel_planner2.main:run"
 run_crew = "travel_planner2.main:run"
+api = "travel_planner2.main:run_api"
 train = "travel_planner2.main:train"
 replay = "travel_planner2.main:replay"
 test = "travel_planner2.main:test"

@@ -2,6 +2,9 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from typing import List
+from travel_planner2.tools.serper_tool import SerperTool
+from travel_planner2.tools.maps_tool import GoogleMapsTool
+
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
 # https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
@@ -16,37 +19,51 @@ class TravelPlanner2():
     # Learn more about YAML configuration files here:
     # Agents: https://docs.crewai.com/concepts/agents#yaml-configuration-recommended
     # Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended
-    
+
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
     @agent
-    def researcher(self) -> Agent:
+    def searcher_agent(self) -> Agent:
         return Agent(
-            config=self.agents_config['researcher'], # type: ignore[index]
-            verbose=True
+            config=self.agents_config['searcher_agent'], # type: ignore[index]
+            tools=[SerperTool(), GoogleMapsTool()],
+            verbose=False
         )
 
     @agent
-    def reporting_analyst(self) -> Agent:
+    def planner_agent(self) -> Agent:
         return Agent(
-            config=self.agents_config['reporting_analyst'], # type: ignore[index]
-            verbose=True
+            config=self.agents_config['planner_agent'], # type: ignore[index]
+            tools=[GoogleMapsTool()],
+            verbose=False
+        )
+
+    @agent
+    def reporter_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['reporter_agent'], # type: ignore[index]
+            verbose=False
         )
 
     # To learn more about structured task outputs,
     # task dependencies, and task callbacks, check out the documentation:
     # https://docs.crewai.com/concepts/tasks#overview-of-a-task
     @task
-    def research_task(self) -> Task:
+    def search_task(self) -> Task:
         return Task(
-            config=self.tasks_config['research_task'], # type: ignore[index]
+            config=self.tasks_config['search_task'] # type: ignore[index]
         )
 
     @task
-    def reporting_task(self) -> Task:
+    def plan_task(self) -> Task:
         return Task(
-            config=self.tasks_config['reporting_task'], # type: ignore[index]
-            output_file='report.md'
+            config=self.tasks_config['plan_task'] # type: ignore[index]
+        )
+
+    @task
+    def report_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['report_task'] # type: ignore[index]
         )
 
     @crew
@@ -59,6 +76,6 @@ class TravelPlanner2():
             agents=self.agents, # Automatically created by the @agent decorator
             tasks=self.tasks, # Automatically created by the @task decorator
             process=Process.sequential,
-            verbose=True,
+            verbose=False,  # Reduce verbosity for speed
             # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
         )
