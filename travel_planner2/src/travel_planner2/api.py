@@ -23,7 +23,6 @@ class TravelPlanRequest(BaseModel):
     start_date: Optional[str] = Field(None, description="Start date (YYYY-MM-DD format)")
     end_date: Optional[str] = Field(None, description="End date (YYYY-MM-DD format)")
     days: Optional[int] = Field(None, ge=1, le=14, description="Number of days for the trip (1-14 days)")
-    preferences: Optional[str] = Field(None, description="Special preferences or requirements")
 
 class PlanResponse(BaseModel):
     destination: str
@@ -196,10 +195,6 @@ async def home():
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="preferences">💭 Preferences (Optional)</label>
-                    <textarea id="preferences" name="preferences" rows="3" placeholder="e.g. museums, food, history, shopping..."></textarea>
-                </div>
 
                 <button type="submit" class="submit-btn" id="submitBtn">
                     🚀 Create Travel Plan
@@ -366,9 +361,7 @@ async def create_travel_plan(request: TravelPlanRequest):
             "duration": days
         }
 
-        # Add preferences if provided
-        if request.preferences:
-            inputs["preferences"] = request.preferences
+        # No preferences needed
 
         # Run the CrewAI crew synchronously
         crew = TravelPlanner2().crew()
@@ -439,9 +432,7 @@ async def create_travel_plan_file(request: TravelPlanRequest):
             "duration": days
         }
 
-        # Add preferences if provided
-        if request.preferences:
-            inputs["preferences"] = request.preferences
+        # No preferences needed
 
         # Run the CrewAI crew synchronously
         crew = TravelPlanner2().crew()
@@ -473,8 +464,7 @@ async def create_travel_plan_file(request: TravelPlanRequest):
 async def create_travel_plan_web(
     destination: str = Form(...),
     start_date: str = Form(...),
-    days: str = Form(...),
-    preferences: Optional[str] = Form(None)
+    days: str = Form(...)
 ):
     """
     Handle web form submission and return HTML result page
@@ -509,9 +499,7 @@ async def create_travel_plan_web(
             "duration": final_days
         }
 
-        # Add preferences if provided
-        if preferences and preferences.strip():
-            inputs["preferences"] = preferences
+        # No preferences needed
 
         # Run the CrewAI crew
         crew = TravelPlanner2().crew()
@@ -637,7 +625,6 @@ async def create_travel_plan_web(
                     <h2>📍 {destination}</h2>
                     <p><strong>🗓️ Duration:</strong> {final_days} days</p>
                     {f'<p><strong>📅 Dates:</strong> {final_start_date} to {final_end_date}</p>' if final_start_date else ''}
-                    {f'<p><strong>💭 Preferences:</strong> {preferences}</p>' if preferences and preferences.strip() else ''}
                 </div>
 
                 <div class="content">
@@ -651,7 +638,6 @@ async def create_travel_plan_web(
                         <input type="hidden" name="days" value="{final_days}">
                         {f'<input type="hidden" name="start_date" value="{final_start_date}">' if final_start_date else ''}
                         {f'<input type="hidden" name="end_date" value="{final_end_date}">' if final_end_date else ''}
-                        {f'<input type="hidden" name="preferences" value="{preferences}">' if preferences and preferences.strip() else ''}
                         <button type="submit" class="btn btn-secondary">📁 Download as File</button>
                     </form>
                 </div>
