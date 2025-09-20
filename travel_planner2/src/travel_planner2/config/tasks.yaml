@@ -1,16 +1,10 @@
-search_task:
-  description: Find 3 attractions and 3 restaurants in {destination}
-  expected_output: "Attractions: 1.[Name], 2.[Name], 3.[Name] | Restaurants: 1.[Name], 2.[Name], 3.[Name]"
-  agent: searcher_agent
-
-plan_task:
-  description: Make {duration}-day schedule with 3 places per day from search results
+find_and_plan_task:
+  description: Find 3 attractions and 3 restaurants in {destination} and create {duration}-day schedule
   expected_output: "Day 1: 9AM [Attraction] → 12PM [Restaurant] → 2PM [Attraction]"
-  agent: planner_agent
-  context: [search_task]
+  agent: finder_agent
 
 report_task:
-  description: Write short travel guide under 200 words
+  description: Write short travel guide under 100 words
   expected_output: Brief guide with daily schedule and place info
   agent: reporter_agent
-  context: [search_task, plan_task]
+  context: [find_and_plan_task]

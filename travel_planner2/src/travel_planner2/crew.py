@@ -23,27 +23,14 @@ class TravelPlanner2():
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
     @agent
-    def searcher_agent(self) -> Agent:
+    def finder_agent(self) -> Agent:
         return Agent(
-            config=self.agents_config['searcher_agent'], # type: ignore[index]
-            tools=[SerperTool(), GoogleMapsTool()],
+            config=self.agents_config['finder_agent'], # type: ignore[index]
+            tools=[SerperTool()],
             verbose=False,
             temperature=0.1,
-            max_iter=2,
-            max_tokens=500,
-            memory=False,
-            max_rpm=100
-        )
-
-    @agent
-    def planner_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['planner_agent'], # type: ignore[index]
-            tools=[GoogleMapsTool()],
-            verbose=False,
-            temperature=0.1,
-            max_iter=2,
-            max_tokens=500,
+            max_iter=1,
+            max_tokens=300,
             memory=False,
             max_rpm=100
         )
@@ -54,8 +41,8 @@ class TravelPlanner2():
             config=self.agents_config['reporter_agent'], # type: ignore[index]
             verbose=False,
             temperature=0.1,
-            max_iter=2,
-            max_tokens=500,
+            max_iter=1,
+            max_tokens=300,
             memory=False,
             max_rpm=100
         )
@@ -64,15 +51,9 @@ class TravelPlanner2():
     # task dependencies, and task callbacks, check out the documentation:
     # https://docs.crewai.com/concepts/tasks#overview-of-a-task
     @task
-    def search_task(self) -> Task:
+    def find_and_plan_task(self) -> Task:
         return Task(
-            config=self.tasks_config['search_task'] # type: ignore[index]
-        )
-
-    @task
-    def plan_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['plan_task'] # type: ignore[index]
+            config=self.tasks_config['find_and_plan_task'] # type: ignore[index]
         )
 
     @task

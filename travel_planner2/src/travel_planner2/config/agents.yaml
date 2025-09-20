@@ -1,12 +1,7 @@
-searcher_agent:
-  role: Searcher
-  goal: Find places in {destination}
-  backstory: Finds travel spots
-
-planner_agent:
-  role: Planner
-  goal: Plan {duration} day schedule
-  backstory: Creates daily schedule
+finder_agent:
+  role: Travel Finder
+  goal: Find places and plan {duration} day schedule for {destination}
+  backstory: Expert at finding attractions, restaurants and creating daily schedules
 
 reporter_agent:
   role: Reporter
