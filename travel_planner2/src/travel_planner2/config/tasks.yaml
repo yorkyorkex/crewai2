@@ -20,4 +20,3 @@ report_task:
     Complete travel guide in markdown format.
   agent: reporter_agent
   context: [search_task, plan_task]
-  output_file: travel_guide.md
