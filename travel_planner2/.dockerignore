@@ -38,7 +38,6 @@ env/
 .gitignore
 
 # Documentation
-*.md
 docs/
 
 # Tests
