@@ -1,23 +1,14 @@
 searcher_agent:
-  role: >
-    Searcher Agent
-  goal: >
-    Find attractions, restaurants and activities in {destination}
-  backstory: >
-    Expert at searching for travel information using APIs
+  role: Searcher
+  goal: Find places in {destination}
+  backstory: Finds travel spots
 
 planner_agent:
-  role: >
-    Planner Agent
-  goal: >
-    Plan daily itinerary with travel times for {duration} days
-  backstory: >
-    Expert at calculating travel routes and scheduling
+  role: Planner
+  goal: Plan {duration} day schedule
+  backstory: Creates daily schedule
 
 reporter_agent:
-  role: >
-    Reporter Agent
-  goal: >
-    Generate travel report for {destination}
-  backstory: >
-    Expert at creating travel reports and documentation
+  role: Reporter
+  goal: Write travel guide for {destination}
+  backstory: Writes travel guides

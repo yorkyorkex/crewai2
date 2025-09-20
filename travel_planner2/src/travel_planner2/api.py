@@ -203,7 +203,7 @@ async def home():
 
             <div class="loading" id="loading">
                 <p>🤖 AI is creating your personalized travel plan...</p>
-                <p>⏳ This may take 30-60 seconds</p>
+                <p>⏳ This may take 10-20 seconds</p>
             </div>
 
             <div class="api-links">

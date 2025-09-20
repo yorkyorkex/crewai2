@@ -27,7 +27,12 @@ class TravelPlanner2():
         return Agent(
             config=self.agents_config['searcher_agent'], # type: ignore[index]
             tools=[SerperTool(), GoogleMapsTool()],
-            verbose=False
+            verbose=False,
+            temperature=0.1,
+            max_iter=2,
+            max_tokens=500,
+            memory=False,
+            max_rpm=100
         )
 
     @agent
@@ -35,14 +40,24 @@ class TravelPlanner2():
         return Agent(
             config=self.agents_config['planner_agent'], # type: ignore[index]
             tools=[GoogleMapsTool()],
-            verbose=False
+            verbose=False,
+            temperature=0.1,
+            max_iter=2,
+            max_tokens=500,
+            memory=False,
+            max_rpm=100
         )
 
     @agent
     def reporter_agent(self) -> Agent:
         return Agent(
             config=self.agents_config['reporter_agent'], # type: ignore[index]
-            verbose=False
+            verbose=False,
+            temperature=0.1,
+            max_iter=2,
+            max_tokens=500,
+            memory=False,
+            max_rpm=100
         )
 
     # To learn more about structured task outputs,
