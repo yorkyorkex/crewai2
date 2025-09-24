@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:data.melbourne.vic.gov.au)",
+      "Bash(pip install:*)",
+      "Bash(python:*)",
+      "Bash(timeout 10s python -m:*)",
+      "Bash(docker build:*)",
+      "Bash(uvicorn:*)",
+      "Bash(curl:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

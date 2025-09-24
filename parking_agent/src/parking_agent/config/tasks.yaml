@@ -1,0 +1,24 @@
+fetch_parking_task:
+  description: >
+    Use the Melbourne Parking Tool to find available parking spots within {radius} meters
+    of coordinates ({latitude}, {longitude}). The tool will automatically:
+    - Fetch real-time parking sensor data from Melbourne's API
+    - Filter for unoccupied spots only
+    - Calculate distances from the user location
+    - Sort results by distance (closest first)
+    - Return up to 20 results
+  expected_output: >
+    JSON object containing parking data with status, message, parking_spots array, and html_table.
+    Each parking spot should include bay_id, status, distance_meters, status_time, updated_time, and google_maps_link.
+  agent: parking_finder_agent
+
+format_parking_task:
+  description: >
+    Take the parking data from the fetch task and ensure it's properly formatted for the API response.
+    Verify the JSON structure contains all required fields and the HTML table is properly formatted.
+    If no spots were found, ensure the appropriate "no results" message is included.
+  expected_output: >
+    Well-formatted JSON response with parking data ready for API consumption.
+    Must include status, found_spots count, parking_data array, html_table, and appropriate message.
+  agent: parking_reporter_agent
+  context: [fetch_parking_task]
