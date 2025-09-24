@@ -190,17 +190,17 @@ class MelbourneParkingTool(BaseTool):
     def _generate_html_table(self, spots: List[Dict[str, Any]]) -> str:
         """Generate HTML table for parking spots"""
         if not spots:
-            return "<p>沒有找到停車位</p>"
+            return "<p>No parking spots found</p>"
 
         html = """
         <table>
             <thead>
                 <tr>
-                    <th>車位ID</th>
-                    <th>狀態</th>
-                    <th>距離(公尺)</th>
-                    <th>狀態時間</th>
-                    <th>最後更新時間</th>
+                    <th>Bay ID</th>
+                    <th>Status</th>
+                    <th>Distance</th>
+                    <th>Status Time</th>
+                    <th>Last Updated</th>
                     <th>Google Maps</th>
                 </tr>
             </thead>
@@ -215,7 +215,7 @@ class MelbourneParkingTool(BaseTool):
                     <td>{spot['distance_meters']}m</td>
                     <td>{spot['status_time']}</td>
                     <td>{spot['updated_time']}</td>
-                    <td><a href="{spot['google_maps_link']}" target="_blank">🗺️ 地圖</a></td>
+                    <td><a href="{spot['google_maps_link']}" target="_blank">🗺️ Maps</a></td>
                 </tr>
             """
 
