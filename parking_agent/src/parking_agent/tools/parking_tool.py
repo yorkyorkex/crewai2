@@ -29,7 +29,7 @@ class MelbourneParkingTool(BaseTool):
             if not parking_data:
                 return json.dumps({
                     "status": "error",
-                    "message": "無法取得停車資料",
+                    "message": "cant fetch parking data from API",
                     "parking_spots": [],
                     "html_table": ""
                 })
@@ -86,7 +86,7 @@ class MelbourneParkingTool(BaseTool):
             if not nearby_spots:
                 return json.dumps({
                     "status": "no_results",
-                    "message": "目前半徑內沒有空位，建議擴大搜尋範圍。",
+                    "message": "currently no available spots within the radius, consider expanding the search area.",
                     "parking_spots": [],
                     "html_table": ""
                 })
@@ -96,7 +96,7 @@ class MelbourneParkingTool(BaseTool):
 
             return json.dumps({
                 "status": "success",
-                "message": f"找到 {len(nearby_spots)} 個空車位",
+                "message": f"found {len(nearby_spots)} available parking spots",
                 "parking_spots": nearby_spots,
                 "html_table": html_table
             })
@@ -104,7 +104,7 @@ class MelbourneParkingTool(BaseTool):
         except Exception as e:
             return json.dumps({
                 "status": "error",
-                "message": f"API 呼叫失敗: {str(e)}",
+                "message": f"API call failed: {str(e)}",
                 "parking_spots": [],
                 "html_table": ""
             })
