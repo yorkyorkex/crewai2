@@ -3,17 +3,23 @@ version: '3.8'
 services:
   parking-agent:
     build: .
+    image: melbourne-parking-agent:latest
+    container_name: melbourne-parking-agent
     ports:
       - "8000:8000"
     environment:
       - PYTHONPATH=/app
-    volumes:
-      # Mount source code for development (comment out for production)
-      - .:/app
-    restart: unless-stopped
+      - PYTHONUNBUFFERED=1
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
-      timeout: 10s
+      timeout: 30s
       retries: 3
-      start_period: 40s
+      start_period: 5s
+    restart: unless-stopped
+    networks:
+      - parking-network
+
+networks:
+  parking-network:
+    driver: bridge
