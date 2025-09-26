@@ -112,8 +112,8 @@ class MelbourneParkingTool(BaseTool):
     def _fetch_parking_data(self) -> List[Dict[str, Any]]:
         """Fetch parking data from Melbourne API"""
         try:
-            # Melbourne parking API endpoint
-            url = "https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets/on-street-parking-bay-sensors/records?limit=100"
+            # Melbourne parking API endpoint - sorted by most recent status timestamp for real-time data
+            url = "https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets/on-street-parking-bay-sensors/records?limit=100&order_by=-status_timestamp"
 
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'

@@ -13,10 +13,10 @@ steps:
       'push', 'gcr.io/$PROJECT_ID/melbourne-parking-agent:latest'
     ]
 
-  # Deploy to Cloud Run
+  # Deploy to Cloud Run (update existing service)
   - name: 'gcr.io/cloud-builders/gcloud'
     args: [
-      'run', 'deploy', 'melbourne-parking-agent',
+      'run', 'deploy', 'parking-agent',
       '--image', 'gcr.io/$PROJECT_ID/melbourne-parking-agent:latest',
       '--region', 'us-central1',
       '--platform', 'managed',
